@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calibracion de camara", "Calibracion de camara\Calibracion de camara.csproj", "{73F8AB02-AD7D-4254-A9EE-CCC6C43BDCEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73F8AB02-AD7D-4254-A9EE-CCC6C43BDCEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F8AB02-AD7D-4254-A9EE-CCC6C43BDCEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F8AB02-AD7D-4254-A9EE-CCC6C43BDCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F8AB02-AD7D-4254-A9EE-CCC6C43BDCEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E23150BA-67EF-411B-9695-990965618B21}
+	EndGlobalSection
+EndGlobal

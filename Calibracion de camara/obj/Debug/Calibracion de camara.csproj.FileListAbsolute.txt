@@ -1,0 +1,15 @@
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Calibracion de camara.exe.config
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Calibracion de camara.exe
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Calibracion de camara.pdb
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Emgu.CV.DebuggerVisualizers.dll
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Emgu.CV.Platform.NetStandard.dll
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Microsoft.VisualStudio.DebuggerVisualizers.dll
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\bin\Debug\Emgu.CV.Platform.NetStandard.xml
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.csprojAssemblyReference.cache
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion_de_camara.Form1.resources
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion_de_camara.Properties.Resources.resources
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.csproj.GenerateResource.cache
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.csproj.CoreCompileInputs.cache
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.csproj.CopyComplete
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.exe
+C:\Users\William\Documents\Visual Studio 2019\Project\Calibracion de camara\Calibracion de camara\obj\Debug\Calibracion de camara.pdb
