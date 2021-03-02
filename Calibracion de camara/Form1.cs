@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Emgu.CV;
+using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
 
@@ -21,6 +22,9 @@ namespace Calibracion_de_camara
         VideoCapture capture;
         Image<Bgr, byte> imgTry;
         Image imgdot;
+        Mat H;
+
+        Image<Bgr, Byte> imgOriginal;
 
         public Form1()
         {
@@ -32,9 +36,13 @@ namespace Calibracion_de_camara
         {
             try
             {
-                imgdot = Image.FromFile("C:\\Users\\William\\Desktop\\Eric PTV Ediciones\\PTV semana 24-11 1366 x 768 22-01\\PPTV_MainModule\\bin\\Debug\\Imagenes\\dot10x10.png");
+                //imgdot = Image.FromFile("C:\\Users\\William\\Desktop\\Eric PTV Ediciones\\PTV semana 24-11 1366 x 768 22-01\\PPTV_MainModule\\bin\\Debug\\Imagenes\\dot10x10.png");
                 capture = new VideoCapture("http://" + "root" + ":" + "PPTV" + "@" + "192.168.2.2" + "/axis-cgi/mjpg/video.cgi?resolution=640x360&req_fps=30&.mjpg");
-                int CuadLarg = 9;
+
+
+                
+
+                /*int CuadLarg = 9;
                 int CuadAlt = 7;
                 Size patternSize = new Size(CuadLarg - 1, CuadAlt - 1);
                 int CuadTot = (CuadLarg - 1) * (CuadAlt - 1);
@@ -70,26 +78,67 @@ namespace Calibracion_de_camara
 
                     CvInvoke.WarpPerspective(img1, img1_warp, H, img1.Size);
                     imageBox4.Image = img1_warp;
-                }
+                }*/
             }
             catch (Exception Ex)
             {
                 MessageBox.Show(Ex.Message);
                 return;
             }
-            Application.Idle += ProcessFrame2;
             Application.Idle += ProcessFrame;
         }
 
         private void ProcessFrame(object sender, EventArgs e)
         {
             imageBox1.Image = capture.QuerySmallFrame();
+            if (capture != null)
+            {
+                Image<Gray, Byte> imgProcessed;
+                imgOriginal = capture.QuerySmallFrame().ToImage<Bgr, Byte>();
+                imgProcessed = imgOriginal.Convert<Gray, byte>();
+                imgProcessed = imgProcessed.InRange(new Gray(250), new Gray(256));   // 239 - 255
+                imgProcessed = imgProcessed.SmoothGaussian(9);
+                CircleF[] circles = imgProcessed.HoughCircles(new Gray(1), new Gray(1), 1, imgProcessed.Height / 4, 1, 4)[0];
+                foreach (var CircleF in circles)
+                {
+                    var center = new Point((int)CircleF.Center.X, (int)CircleF.Center.Y);
+                    CvInvoke.Circle(imgOriginal, center, 4, new MCvScalar(0, 0, 255),                                 // draw pure red
+                                                    -1,
+                                                    LineType.Filled,                                    // use AA to smooth the pixels
+                                                    0);
+                }
+
+                img2.Image = imgOriginal;
+                if (H != null) {
+                    Mat img1_warp = new Mat();
+                    CvInvoke.WarpPerspective(imgOriginal, img1_warp, H, imgOriginal.Size);
+                    //corners = CvInvoke.PerspectiveTransform(corners, H);
+                    Image<Bgr, byte> img1_w_1 = img1_warp.ToImage<Bgr, byte>();
+
+                    imgProcessed = img1_w_1.Convert<Gray, byte>();
+                    imgProcessed = imgProcessed.InRange(new Gray(239), new Gray(255));   // 239 - 255
+                    imgProcessed = imgProcessed.SmoothGaussian(3);
+                    circles = imgProcessed.HoughCircles(new Gray(1), // canny threshold
+                                                                            new Gray(1), // acumulator threshold
+                                                                            1,  // size of the image / this param. = "acumulator resolution"
+                                                                            imgProcessed.Height / 4, // imgProcessed.Height / 4 min distance in pixels between the center of the detected circles
+                                                                            1,   // min radius detected circles
+                                                                            4)[0]; // max radius detected circle. get circles from the first channel
+
+                    foreach (var CircleF in circles)
+                    {
+                        var center = new Point((int)CircleF.Center.X, (int)CircleF.Center.Y);
+                        CvInvoke.Circle(img1_w_1, center, 4, new MCvScalar(0, 0, 255),                                 // draw pure red
+                                                        -1,
+                                                        LineType.Filled,                                    // use AA to smooth the pixels
+                                                        0);
+                    }
+                    imageBox4.Image = img1_w_1;
+                }
+            }
         }
 
-        private void ProcessFrame2(object sender, EventArgs e)
-        {
-            img2.Image = imgTry;
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -103,22 +152,25 @@ namespace Calibracion_de_camara
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int CuadLarg = 9;
-            int CuadAlt = 7;
-            Size patternSize = new Size(CuadLarg - 1, CuadAlt - 1);
-            int CuadTot = (CuadLarg - 1) * (CuadAlt - 1);
-
-            corners1 = new VectorOfPointF();
-            Image<Bgr, byte> imgtest1 = capture.QuerySmallFrame().ToImage<Bgr, Byte>();
-
-            Boolean found = CvInvoke.FindChessboardCorners(imgtest1, patternSize, corners1);
-            Console.WriteLine(corners1.Size);
-
-            if (found)
+            if (capture != null)
             {
-                CvInvoke.DrawChessboardCorners(imgtest1, patternSize, corners1, found);
-                img2.Image = imgtest1;
-                
+                Image<Gray, Byte> imgProcessed;
+                imgOriginal = capture.QuerySmallFrame().ToImage<Bgr, Byte>();
+                imgProcessed = imgOriginal.Convert<Gray, byte>();
+                imgProcessed = imgProcessed.InRange(new Gray(254), new Gray(256));   // 239 - 255
+                imgProcessed = imgProcessed.SmoothGaussian(9);
+                CircleF[] circles = imgProcessed.HoughCircles(new Gray(0), new Gray(1), 1, imgProcessed.Height, 1,4)[0];
+                imageBox4.Image = imgProcessed;
+
+                foreach (var CircleF in circles)
+                {
+                    var center = new Point((int)CircleF.Center.X, (int)CircleF.Center.Y);
+                    CvInvoke.Circle(imgOriginal, center, 4, new MCvScalar(0, 0, 255),                                 // draw pure red
+                                                    -1,           
+                                                    LineType.Filled,                                    // use AA to smooth the pixels
+                                                    0);
+                }
+                img2.Image = imgOriginal;
             }
 
         }
@@ -167,7 +219,7 @@ namespace Calibracion_de_camara
                 imgtest1.Draw(rectangle, new Bgr(Color.Red), 2);
                 imageBox3.Image = imgtest1;
                 Mat img1_warp = new Mat();
-                Mat H = CvInvoke.GetPerspectiveTransform(srcs, dsts);
+                H = CvInvoke.GetPerspectiveTransform(srcs, dsts);
 
                 var img1 = imgtest1;
 
